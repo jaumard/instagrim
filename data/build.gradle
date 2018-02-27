@@ -1,0 +1,66 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion project.compileSdkVersion.toInteger()
+
+    defaultConfig {
+        minSdkVersion project.minSdkVersion.toInteger()
+        targetSdkVersion project.targetSdkVersion.toInteger()
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "INSTAGRIM_DATABASE_NAME", "\"instagrim\""
+
+        kapt {
+            arguments {
+                arg("room.schemaLocation", "$projectDir/schemas".toString())
+            }
+        }
+    }
+
+
+    buildTypes {
+        release {
+            consumerProguardFile 'proguard-rules.pro'
+        }
+        debug {
+            consumerProguardFile 'proguard-rules.pro'
+        }
+    }
+
+}
+androidExtensions {
+    experimental = true
+}
+kapt {
+    generateStubs = true
+}
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    api project(":network")
+
+    implementation "com.android.support:support-annotations:$androidSupport"
+
+    kapt "com.google.dagger:dagger-compiler:$dagger"
+    implementation "com.google.dagger:dagger:$dagger"
+
+    implementation "com.jakewharton.timber:timber:$timber"
+
+    implementation "android.arch.persistence.room:runtime:$room"
+    implementation "android.arch.persistence.room:rxjava2:$room"
+    kapt "android.arch.persistence.room:compiler:$room"
+
+    implementation "io.reactivex.rxjava2:rxkotlin:$rxKotlin"
+    implementation "io.reactivex.rxjava2:rxjava:$rxJava"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxAndroid"
+
+    testImplementation "junit:junit:$junit"
+    testImplementation "com.nhaarman:mockito-kotlin:$mockitoKotlin"
+    testImplementation "org.mockito:mockito-core:$mockito"
+
+    androidTestImplementation "com.android.support.test:runner:$androidTestRunner"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$espresso"
+}

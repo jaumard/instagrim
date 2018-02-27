@@ -1,0 +1,61 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+Properties localProperties = new Properties()
+localProperties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+android {
+    compileSdkVersion project.compileSdkVersion.toInteger()
+
+    defaultConfig {
+        minSdkVersion project.minSdkVersion.toInteger()
+        targetSdkVersion project.targetSdkVersion.toInteger()
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "INSTAGRAM_BASE_URL", "\"https://api.instagram.com/\""
+        buildConfigField "String", "INSTAGRAM_SECRET", "\"" + localProperties.getProperty("instagram.secret") + "\""
+        buildConfigField "String", "INSTAGRAM_CLIENT_ID", "\"" + localProperties.getProperty("instagram.clientId") + "\""
+        buildConfigField "String", "INSTAGRAM_URL_REDIRECTION", "\"https://instagrim.com/login\""
+
+    }
+
+    buildTypes {
+        release {
+            consumerProguardFile 'proguard-rules.pro'
+        }
+        debug {
+            consumerProguardFile 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation "com.android.support:support-annotations:$androidSupport"
+    
+    kapt "com.google.dagger:dagger-compiler:$dagger"
+    implementation "com.google.dagger:dagger:$dagger"
+
+    api "com.squareup.retrofit2:retrofit:$retrofit"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit"
+    implementation "com.squareup.okhttp3:okhttp:$okHttp"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okHttp"
+
+    implementation "io.reactivex.rxjava2:rxkotlin:$rxKotlin"
+    implementation "io.reactivex.rxjava2:rxjava:$rxJava"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxAndroid"
+
+    testImplementation "junit:junit:$junit"
+    testImplementation "com.nhaarman:mockito-kotlin:$mockitoKotlin"
+    testImplementation "org.mockito:mockito-core:$mockito"
+
+    androidTestImplementation "com.nhaarman:mockito-kotlin:$mockitoKotlin"
+    androidTestImplementation "org.mockito:mockito-core:$mockito"
+    androidTestImplementation "com.android.support.test:runner:$androidTestRunner"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$espresso"
+}

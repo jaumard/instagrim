@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="data"
+            type="com.jaumard.instagrim.data.media.models.Media"/>
+    </data>
+
+    <ImageView
+        android:id="@+id/img"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/black"
+        android:contentDescription="@string/content_desc_image_preview"
+        android:scaleType="fitCenter"
+        android:src="@{data.url}"
+        android:transitionName="@{data.id}"
+        app:thumbnail="@{data.thumbnail}"
+        tools:showIn="@layout/activity_preview"
+        tools:targetApi="lollipop"/>
+</layout>

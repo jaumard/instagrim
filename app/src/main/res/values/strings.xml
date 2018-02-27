@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Instagrim</string>
+    <string name="path_instagram_login">oauth/authorize/?client_id=%s&amp;redirect_uri=%s&amp;response_type=code</string>
+    <string name="error_generic">An error occurred, please try again later</string>
+    <string name="image_thumbnail_desc">Image thumbnail</string>
+    <string name="content_desc_image_preview">Image big resolution</string>
+    <string name="content_desc_likes">Number of likes for this media</string>
+    <string name="content_desc_comments">Number of comments for this media</string>
+    <string name="login_with_instagram">Login with Instagram</string>
+    <string name="logout">Logout</string>
+    <string name="error_logged_out">Your session has expired, please log in again</string>
+    <string name="avatar_transition_name">avatar</string>
+    <string name="username_transition_name">username</string>
+</resources>

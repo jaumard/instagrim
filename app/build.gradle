@@ -1,0 +1,98 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion project.compileSdkVersion.toInteger()
+    defaultConfig {
+        applicationId "com.jaumard.instagrim"
+        minSdkVersion project.minSdkVersion.toInteger()
+        targetSdkVersion project.targetSdkVersion.toInteger()
+        versionCode 1
+        versionName "1.0"
+        //testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.jaumard.instagrim.InstagrimAndroidRunner"
+
+        vectorDrawables.useSupportLibrary = true
+    }
+
+    buildTypes {
+        release {
+            debuggable false
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            debuggable true
+            //minifyEnabled true
+            //shrinkResources true
+            //proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro', 'debug-proguard-rules.pro'
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+}
+
+kapt {
+    generateStubs = true
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation project(":data")
+
+    kapt "com.android.databinding:compiler:$androidPlugin"
+
+    implementation "com.jaumard:recyclerviewbinding:$recyclerViewBinding"
+
+    implementation "com.github.bumptech.glide:glide:$glide"
+    implementation "com.github.bumptech.glide:okhttp3-integration:$glide"
+    kapt "com.github.bumptech.glide:compiler:$glide"
+
+    kapt "com.google.dagger:dagger-compiler:$dagger"
+    kapt "com.google.dagger:dagger-android-processor:$dagger"
+    implementation "com.google.dagger:dagger:$dagger"
+    implementation "com.google.dagger:dagger-android-support:$daggerAndroid"
+
+    implementation "com.android.support.constraint:constraint-layout:$constraintLayout"
+
+    implementation "com.jakewharton.timber:timber:$timber"
+
+    implementation "android.arch.lifecycle:extensions:$androidArch"
+
+    implementation "io.reactivex.rxjava2:rxkotlin:$rxKotlin"
+    implementation "io.reactivex.rxjava2:rxjava:$rxJava"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxAndroid"
+
+    implementation "com.android.support:recyclerview-v7:$androidSupport"
+    implementation "com.android.support:appcompat-v7:$androidSupport"
+    implementation "com.android.support:design:$androidSupport"
+    implementation "com.android.support:support-v4:$androidSupport"
+    implementation "com.android.support:support-annotations:$androidSupport"
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+
+    testImplementation "junit:junit:$junit"
+    testImplementation "com.nhaarman:mockito-kotlin:$mockitoKotlin"
+    testImplementation "org.mockito:mockito-core:$mockito"
+
+    kaptAndroidTest "com.google.dagger:dagger-compiler:$dagger"
+    kaptAndroidTest "com.google.dagger:dagger-android-processor:$dagger"
+
+    androidTestImplementation "com.nhaarman:mockito-kotlin:$mockitoKotlin"
+    androidTestImplementation "org.mockito:mockito-core:$mockito"
+    androidTestImplementation "android.arch.persistence.room:runtime:$room"
+    androidTestImplementation "com.android.support.test:runner:$androidTestRunner"
+    androidTestImplementation "com.android.support.test.espresso:espresso-contrib:$espresso"
+    androidTestImplementation "com.android.support.test.espresso:espresso-intents:$espresso"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$espresso"
+}

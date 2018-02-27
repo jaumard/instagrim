@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="list"
+            type="java.util.List&lt;com.jaumard.instagrim.data.media.models.Media&gt;"/>
+
+        <variable
+            name="fullScreenAccessor"
+            type="com.jaumard.instagrim.ui.gallery.navigation.FullScreenAccessor"/>
+
+        <variable
+            name="data"
+            type="com.jaumard.instagrim.data.media.models.Media"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:contentDescription="@string/image_thumbnail_desc"
+            android:onClick="@{(v) -> fullScreenAccessor.goToFullScreen(v, data, list) }"
+            android:scaleType="centerCrop"
+            android:transitionName="@{data.id}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@{data.thumbnail}"
+            tools:targetApi="lollipop"/>
+
+        <com.jaumard.instagrim.ui.gallery.views.ImageCounterView
+            android:layout_width="@dimen/counter_size"
+            android:layout_height="@dimen/counter_size"
+            android:contentDescription="@string/content_desc_likes"
+            android:paddingTop="2dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/ic_likes_24dp"
+            app:text="@{data.likes}"/>
+
+        <com.jaumard.instagrim.ui.gallery.views.ImageCounterView
+            android:layout_width="@dimen/counter_size"
+            android:layout_height="@dimen/counter_size"
+            android:contentDescription="@string/content_desc_comments"
+            android:paddingTop="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_comments_24dp"
+            app:text="@{data.comments}"/>
+    </android.support.constraint.ConstraintLayout>
+</layout>
